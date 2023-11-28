@@ -10,11 +10,11 @@ bithumb = Bithumb("831a4d410d4b9c8bfec8642d8b680b2d", "da9b51df3e806e99db6cf95a2
 while True:
     df = Bithumb.get_candlestick("XRP", chart_intervals="1m")
 
-    k = df['close'].ewm(span=12, adjust=False, min_periods=12).mean()
-    d = df['close'].ewm(span=26, adjust=False, min_periods=26).mean()
+    k = df['close'].ewm(span=12, adjust=False, min_periods=1).mean()
+    d = df['close'].ewm(span=26, adjust=False, min_periods=1).mean()
     macd = k - d
     df['macd'] = macd
-    signal = macd.ewm(span=9, adjust=False, min_periods=9).mean()
+    signal = macd.ewm(span=9, adjust=False, min_periods=1).mean()
     df['signal'] = signal
 
     i = len(df) - 1
