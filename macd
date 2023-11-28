@@ -1,0 +1,32 @@
+import pybithumb
+from pybithumb import Bithumb
+import pandas as pd
+import numpy as np
+import datetime
+import time
+
+bithumb = Bithumb("831a4d410d4b9c8bfec8642d8b680b2d", "da9b51df3e806e99db6cf95a2196fb01")
+
+while True:
+    df = Bithumb.get_candlestick("XRP", chart_intervals="1m")
+
+    k = df['close'].ewm(span=12, adjust=False, min_periods=12).mean()
+    d = df['close'].ewm(span=26, adjust=False, min_periods=26).mean()
+    macd = k - d
+    df['macd'] = macd
+    signal = macd.ewm(span=9, adjust=False, min_periods=9).mean()
+    df['signal'] = signal
+
+    i = len(df) - 1
+    if (
+            (df['macd'].iloc[i-1] <= df['signal'].iloc[i-1]) and
+            (df['macd'].iloc[i] > df['signal'].iloc[i])
+    ):
+        order = bithumb.buy_market_order(order_currency="XRP", unit=5)
+        sell_condition_met = False
+    n = len(df) - 1
+    if (
+            (df['macd'].iloc[n - 1] >= df['signal'].iloc[n - 1]) and
+            (df['macd'].iloc[n] < df['signal'].iloc[n])
+    ):
+        order = bithumb.sell_market_order("XRP", 5)
