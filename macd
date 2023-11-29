@@ -24,14 +24,14 @@ while True:
                 (df['macd'].iloc[i - 1] <= df['signal'].iloc[i - 1]) and
                 (df['macd'].iloc[i] > df['signal'].iloc[i])
         ):
-            order = bithumb.buy_market_order(order_currency="XRP", unit=100)
+            order = bithumb.buy_market_order(order_currency="XRP", unit=1000)
             sell_condition_met = False
         n = len(df) - 1
         if (
                 (df['macd'].iloc[n - 1] >= df['signal'].iloc[n - 1]) and
                 (df['macd'].iloc[n] < df['signal'].iloc[n])
         ):
-            order = bithumb.sell_market_order("XRP", 100)
+            order = bithumb.sell_market_order("XRP", 1000)
 
     except ValueError:
         df.dropna(inplace=True)
@@ -47,11 +47,11 @@ while True:
                 (df['macd'].iloc[i - 1] <= df['signal'].iloc[i - 1]) and
                 (df['macd'].iloc[i] > df['signal'].iloc[i])
         ):
-            order = bithumb.buy_market_order(order_currency="XRP", unit=100)
+            order = bithumb.buy_market_order(order_currency="XRP", unit=1000)
             sell_condition_met = False
         n = len(df) - 1
         if (
                 (df['macd'].iloc[n - 1] >= df['signal'].iloc[n - 1]) and
                 (df['macd'].iloc[n] < df['signal'].iloc[n])
         ):
-            order = bithumb.sell_market_order("XRP", 100)
+            order = bithumb.sell_market_order("XRP", 1000)
