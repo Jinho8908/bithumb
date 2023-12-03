@@ -5,7 +5,7 @@ import numpy as np
 import datetime
 import time
 
-bithumb = Bithumb("831a4d410d4b9c8bfec8642d8b680b2d", "da9b51df3e806e99db6cf95a2196fb01")
+bithumb = Bithumb("", "")
 
 while True:
     df = Bithumb.get_candlestick("XRP", chart_intervals="1m")
